@@ -1,4 +1,4 @@
-package com.dicoding.newapp
+package com.dicoding.newapp.presentation.mainActivity
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
