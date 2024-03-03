@@ -1,10 +1,8 @@
 package com.dicoding.newapp.presentation.mainActivity
 
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import com.dicoding.newapp.domain.usecase.AppEntryUseCase
+import com.dicoding.newapp.domain.usecase.app_entry.AppEntryUseCase
 import javax.inject.Inject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

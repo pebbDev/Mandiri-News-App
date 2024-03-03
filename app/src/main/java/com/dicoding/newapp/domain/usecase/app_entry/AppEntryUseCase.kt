@@ -1,4 +1,4 @@
-package com.dicoding.newapp.domain.usecase
+package com.dicoding.newapp.domain.usecase.app_entry
 
 data class AppEntryUseCase(
     val readAppEntry: ReadAppEntry,

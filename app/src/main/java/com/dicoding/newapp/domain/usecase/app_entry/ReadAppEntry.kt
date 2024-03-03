@@ -1,4 +1,4 @@
-package com.dicoding.newapp.domain.usecase
+package com.dicoding.newapp.domain.usecase.app_entry
 
 import com.dicoding.newapp.domain.manger.LocalUserManger
 import kotlinx.coroutines.flow.Flow
