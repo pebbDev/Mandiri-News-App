@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import com.dicoding.newapp.presentation.onboarding.OnBoardingScreen
 import com.dicoding.newapp.presentation.onboarding.components.OnboardingPage
 import com.dicoding.newapp.ui.theme.NewAppTheme
@@ -21,6 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             NewAppTheme {
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
