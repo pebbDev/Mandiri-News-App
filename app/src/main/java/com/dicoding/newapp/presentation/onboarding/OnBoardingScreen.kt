@@ -32,7 +32,7 @@ import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen() {
+fun OnBoardingScreen(event: (OnBoardingEvent)->Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pageState = rememberPagerState(initialPage = 0) {
             pages.size
@@ -83,7 +83,7 @@ fun OnBoardingScreen() {
                     onClick = {
                         scope.launch {
                             if (pageState.currentPage == 2) {
-                                //
+                                event(OnBoardingEvent.SaveAppEntry)
                             } else {
                                 pageState.animateScrollToPage(
                                     page = pageState.currentPage + 1

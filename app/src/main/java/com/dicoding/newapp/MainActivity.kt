@@ -6,19 +6,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.dicoding.newapp.domain.usecase.AppEntryUseCase
 import com.dicoding.newapp.presentation.onboarding.OnBoardingScreen
-import com.dicoding.newapp.presentation.onboarding.components.OnboardingPage
+import com.dicoding.newapp.presentation.onboarding.OnBoardingViewModel
 import com.dicoding.newapp.ui.theme.NewAppTheme
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -39,25 +38,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewAppTheme {
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-                OnBoardingScreen()
+                    val viewModel: OnBoardingViewModel = hiltViewModel()
+                OnBoardingScreen(
+                    event= viewModel::onEvent
+                )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    NewAppTheme {
-        Greeting("Android")
     }
 }
