@@ -9,25 +9,27 @@ import com.dicoding.newapp.domain.usecase.SaveAppEntry
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 
 @Module
-@InstallIn(Singleton::class)
+@InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
     @Singleton
     fun provideLocalUserManger(
         application: Application
-    ):LocalUserManger = LocalUserMangerImpl(application)
+    ): LocalUserManger = LocalUserMangerImpl(application = application)
 
     @Provides
     @Singleton
-    fun provideAppEntryUseCase(
+    fun provideAppEntryUseCases(
         localUserManger: LocalUserManger
-    )= AppEntryUseCase(
+    ): AppEntryUseCase = AppEntryUseCase(
         readAppEntry = ReadAppEntry(localUserManger),
         saveAppEntry = SaveAppEntry(localUserManger)
     )
+
 }
