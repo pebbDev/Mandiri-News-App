@@ -14,6 +14,8 @@ import com.dicoding.newapp.presentation.home.HomeScreen
 import com.dicoding.newapp.presentation.home.HomeViewModel
 import com.dicoding.newapp.presentation.onboarding.OnBoardingScreen
 import com.dicoding.newapp.presentation.onboarding.OnBoardingViewModel
+import com.dicoding.newapp.presentation.search.SearchScreen
+import com.dicoding.newapp.presentation.search.SearchViewModel
 
 @Composable
 fun NavGraph(
@@ -37,9 +39,8 @@ fun NavGraph(
             startDestination = Route.NewsNavigationScreen.route
         ) {
             composable(route = Route.NewsNavigationScreen.route){
-                val viewModel: HomeViewModel = hiltViewModel()
-                val article = viewModel.news.collectAsLazyPagingItems()
-                HomeScreen(articles = article, navigate = {})
+                val viewModel: SearchViewModel = hiltViewModel()
+                SearchScreen(state = viewModel.state.value, event = viewModel::onEvent)
             }
         }
     }

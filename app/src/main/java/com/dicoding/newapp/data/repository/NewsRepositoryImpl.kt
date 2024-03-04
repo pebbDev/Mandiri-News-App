@@ -5,12 +5,13 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.dicoding.newapp.data.remote.NewsApi
 import com.dicoding.newapp.data.remote.NewsPagingSource
+import com.dicoding.newapp.data.remote.SearchNewsPagingSource
 import com.dicoding.newapp.domain.model.Article
 import com.dicoding.newapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(
+class NewsRepositoryImpl (
     private val newsApi: NewsApi,
 ) : NewsRepository {
 
@@ -24,7 +25,16 @@ class NewsRepositoryImpl @Inject constructor(
     }
 
     override fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>> {
-        TODO("Not yet implemented")
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                SearchNewsPagingSource(
+                    api = newsApi,
+                    searchQuery = searchQuery,
+                    sources = sources.joinToString(separator = ",")
+                )
+            }
+        ).flow
     }
 
     override suspend fun upsertArticle(article: Article) {
