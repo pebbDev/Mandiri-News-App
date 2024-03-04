@@ -3,6 +3,7 @@ package com.dicoding.newapp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import com.dicoding.newapp.data.local.NewsDao
 import com.dicoding.newapp.data.remote.NewsApi
 import com.dicoding.newapp.data.remote.NewsPagingSource
 import com.dicoding.newapp.data.remote.SearchNewsPagingSource
@@ -13,6 +14,7 @@ import javax.inject.Inject
 
 class NewsRepositoryImpl (
     private val newsApi: NewsApi,
+    private val newsDao: NewsDao
 ) : NewsRepository {
 
     override fun getNews(sources: List<String>): Flow<PagingData<Article>> {
@@ -38,18 +40,18 @@ class NewsRepositoryImpl (
     }
 
     override suspend fun upsertArticle(article: Article) {
-        TODO("Not yet implemented")
+        newsDao.upsert(article)
     }
 
     override suspend fun deleteArticle(article: Article) {
-        TODO("Not yet implemented")
+        newsDao.delete(article)
     }
 
     override fun getArticles(): Flow<List<Article>> {
-        TODO("Not yet implemented")
+        return newsDao.getArticles()
     }
 
     override suspend fun getArticle(url: String): Article? {
-        TODO("Not yet implemented")
+        return newsDao.getArticle(url = url)
     }
 }
