@@ -1,17 +1,12 @@
 package com.dicoding.newapp.presentation.nvgraph
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavDestination
-import androidx.navigation.NavGraph
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.dicoding.newapp.presentation.home.HomeScreen
-import com.dicoding.newapp.presentation.home.HomeViewModel
+import com.dicoding.newapp.presentation.newsNavigation.NewsNavigator
 import com.dicoding.newapp.presentation.onboarding.OnBoardingScreen
 import com.dicoding.newapp.presentation.onboarding.OnBoardingViewModel
 import com.dicoding.newapp.presentation.search.SearchScreen
@@ -30,7 +25,7 @@ fun NavGraph(
         ) {
             composable(route = Route.OnBoardingScreen.route) {
                 val viewModel: OnBoardingViewModel = hiltViewModel()
-                OnBoardingScreen(event = viewModel::onEvent)
+                OnBoardingScreen(onEvent = viewModel::onEvent)
             }
         }
 
@@ -39,8 +34,7 @@ fun NavGraph(
             startDestination = Route.NewsNavigationScreen.route
         ) {
             composable(route = Route.NewsNavigationScreen.route){
-                val viewModel: SearchViewModel = hiltViewModel()
-                SearchScreen(state = viewModel.state.value, event = viewModel::onEvent)
+                NewsNavigator()
             }
         }
     }

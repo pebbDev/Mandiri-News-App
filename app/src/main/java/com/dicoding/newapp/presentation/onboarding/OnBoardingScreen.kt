@@ -27,19 +27,19 @@ import com.dicoding.newapp.presentation.onboarding.components.Dimens.pageIndicat
 import com.dicoding.newapp.presentation.onboarding.components.OnboardingPage
 import com.dicoding.newapp.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBoardingScreen(event: (OnBoardingEvent)->Unit) {
+fun OnBoardingScreen(
+    onEvent: (OnBoardingEvent) -> Unit
+) {
     Column(modifier = Modifier.fillMaxSize()) {
-        val pageState = rememberPagerState(initialPage = 0) {
+        val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
         }
-        val buttonState = remember {
+        val buttonsState = remember {
             derivedStateOf {
-                when (pageState.currentPage) {
+                when (pagerState.currentPage) {
                     0 -> listOf("", "Next")
                     1 -> listOf("Back", "Next")
                     2 -> listOf("Back", "Get Started")
@@ -47,7 +47,7 @@ fun OnBoardingScreen(event: (OnBoardingEvent)->Unit) {
                 }
             }
         }
-        HorizontalPager(state = pageState) { index ->
+        HorizontalPager(state = pagerState) { index ->
             OnboardingPage(page = pages[index])
         }
         Spacer(modifier = Modifier.weight(1f))
@@ -60,33 +60,36 @@ fun OnBoardingScreen(event: (OnBoardingEvent)->Unit) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             PageIndicator(
-                modifier = Modifier.width(pageIndicatorWidth),
-                pageSize = pages.size,
-                selectPage = pageState.currentPage
+                modifier = Modifier.width(52.dp),
+                pagesSize = pages.size,
+                selectedPage = pagerState.currentPage
             )
+
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val scope = rememberCoroutineScope()
-
-                if (buttonState.value[0].isNotEmpty()) {
-                    NewsTextButton(text = buttonState.value[0],
+                //Hide the button when the first element of the list is empty
+                if (buttonsState.value[0].isNotEmpty()) {
+                    NewsTextButton(
+                        text = buttonsState.value[0],
                         onClick = {
                             scope.launch {
-                                pageState.animateScrollToPage(
-                                    page = pageState.currentPage - 1
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage - 1
                                 )
                             }
+
                         }
                     )
                 }
-
-                NewButton(text = buttonState.value[1],
+                NewButton(
+                    text = buttonsState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pageState.currentPage == 2) {
-                                event(OnBoardingEvent.SaveAppEntry)
+                            if (pagerState.currentPage == 2) {
+                                onEvent(OnBoardingEvent.SaveAppEntry)
                             } else {
-                                pageState.animateScrollToPage(
-                                    page = pageState.currentPage + 1
+                                pagerState.animateScrollToPage(
+                                    page = pagerState.currentPage + 1
                                 )
                             }
                         }
