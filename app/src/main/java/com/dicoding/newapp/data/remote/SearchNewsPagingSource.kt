@@ -37,6 +37,4 @@ class SearchNewsPagingSource(
             LoadResult.Error(throwable = e)
         }
     }
-
-
 }

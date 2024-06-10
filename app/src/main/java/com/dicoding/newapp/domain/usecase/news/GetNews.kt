@@ -6,7 +6,7 @@ import com.dicoding.newapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetNews (
+class GetNews   @Inject constructor(
     private val newsRepository: NewsRepository
 ) {
     operator fun invoke(sources: List<String>): Flow<PagingData<Article>> {

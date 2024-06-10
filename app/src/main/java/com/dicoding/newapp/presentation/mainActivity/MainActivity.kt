@@ -41,7 +41,6 @@ class MainActivity : ComponentActivity() {
                         darkIcons = !isSystemInDarkMode
                     )
                 }
-
                 Box(
                     modifier = Modifier.background(MaterialTheme.colorScheme.background)
                         .fillMaxSize()

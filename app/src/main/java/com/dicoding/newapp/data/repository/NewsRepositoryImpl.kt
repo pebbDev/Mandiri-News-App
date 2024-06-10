@@ -3,7 +3,7 @@ package com.dicoding.newapp.data.repository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.dicoding.newapp.data.local.NewsDao
+import com.dicoding.newapp.data.local.dao.NewsDao
 import com.dicoding.newapp.data.remote.NewsApi
 import com.dicoding.newapp.data.remote.NewsPagingSource
 import com.dicoding.newapp.data.remote.SearchNewsPagingSource
@@ -12,7 +12,7 @@ import com.dicoding.newapp.domain.repository.NewsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class NewsRepositoryImpl (
+class NewsRepositoryImpl @Inject constructor(
     private val newsApi: NewsApi,
     private val newsDao: NewsDao
 ) : NewsRepository {
@@ -39,6 +39,7 @@ class NewsRepositoryImpl (
         ).flow
     }
 
+
     override suspend fun upsertArticle(article: Article) {
         newsDao.upsert(article)
     }
@@ -54,4 +55,5 @@ class NewsRepositoryImpl (
     override suspend fun getArticle(url: String): Article? {
         return newsDao.getArticle(url = url)
     }
+
 }

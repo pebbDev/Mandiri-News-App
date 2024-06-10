@@ -32,6 +32,7 @@ import com.dicoding.newapp.domain.model.Source
 import com.dicoding.newapp.presentation.onboarding.components.Dimens.ArticleCardSize
 import com.dicoding.newapp.presentation.onboarding.components.Dimens.ExtraSmallPadding
 import com.dicoding.newapp.presentation.onboarding.components.Dimens.ExtraSmallPadding2
+import com.dicoding.newapp.presentation.onboarding.components.Dimens.ExtraSmallPadding3
 import com.dicoding.newapp.presentation.onboarding.components.Dimens.SmallIconSize
 import com.dicoding.newapp.ui.theme.NewAppTheme
 
@@ -58,7 +59,7 @@ fun ArticleCard(
         Column(
             verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier
-                .padding(horizontal = ExtraSmallPadding)
+                .padding(horizontal = ExtraSmallPadding3)
                 .height(ArticleCardSize)
         ) {
             Text(
@@ -77,6 +78,7 @@ fun ArticleCard(
                     color = colorResource(id = R.color.body)
                 )
                 Spacer(modifier = Modifier.width(ExtraSmallPadding2))
+                Spacer(modifier = Modifier.weight(1f))
                 Icon(
                     painter = painterResource(id = R.drawable.ic_time),
                     contentDescription = null,

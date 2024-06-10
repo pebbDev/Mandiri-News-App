@@ -39,7 +39,6 @@ fun ArticlesList(
             }
         }
     }
-
 }
 
 @Composable

@@ -21,7 +21,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.dicoding.newapp.R
 import com.dicoding.newapp.domain.model.Article
-import com.dicoding.newapp.presentation.detail.components.DetailsScreen
+import com.dicoding.newapp.presentation.bookmark.BookmarkScreen
+import com.dicoding.newapp.presentation.bookmark.BookmarkViewModel
+import com.dicoding.newapp.presentation.detail.DetailsScreen
+import com.dicoding.newapp.presentation.detail.DetailsViewModel
 import com.dicoding.newapp.presentation.home.HomeScreen
 import com.dicoding.newapp.presentation.home.HomeViewModel
 import com.dicoding.newapp.presentation.newsNavigation.components.BottomNavigationItem
@@ -29,6 +32,7 @@ import com.dicoding.newapp.presentation.newsNavigation.components.NewsBottomNavi
 import com.dicoding.newapp.presentation.nvgraph.Route
 import com.dicoding.newapp.presentation.search.SearchScreen
 import com.dicoding.newapp.presentation.search.SearchViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,7 +114,10 @@ fun NewsNavigator() {
                             navController = navController,
                             article = article
                         )
-                    }
+                    },
+                    event = viewModel::onEvent,
+                    state = viewModel.state.value
+
                 )
             }
             composable(route = Route.SearchScreen.route) {
@@ -120,7 +127,7 @@ fun NewsNavigator() {
                 SearchScreen(
                     state = state,
                     event = viewModel::onEvent,
-                    navigateToDetails = {article ->
+                    navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
                             article = article
@@ -129,18 +136,31 @@ fun NewsNavigator() {
                 )
             }
             composable(route = Route.DetailsScreen.route) {
+                val viewModel: DetailsViewModel = hiltViewModel()
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
-                            event = {},
-                            navigateUp = { navController.navigateUp() }
+                            event = viewModel::onEvent,
+                            navigateUp = { navController.navigateUp() },
+                            sideEffect = viewModel.sideEffect
                         )
                     }
 
             }
             composable(route = Route.BookmarkScreen.route) {
-
+                val viewModel: BookmarkViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                OnBackClickStateSaver(navController = navController)
+                BookmarkScreen(
+                    state = state,
+                    navigateToDetails = { article ->
+                        navigateToDetails(
+                            navController = navController,
+                            article = article
+                        )
+                    }
+                )
             }
         }
     }
@@ -168,7 +188,7 @@ private fun navigateToTab(navController: NavController, route: String) {
     }
 }
 
-private fun navigateToDetails(navController: NavController, article: Article){
+private fun navigateToDetails(navController: NavController, article: Article) {
     navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
     navController.navigate(
         route = Route.DetailsScreen.route

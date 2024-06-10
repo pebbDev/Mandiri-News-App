@@ -1,4 +1,4 @@
-package com.dicoding.newapp.data.local
+package com.dicoding.newapp.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

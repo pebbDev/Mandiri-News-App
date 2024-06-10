@@ -1,4 +1,4 @@
-package com.dicoding.newapp.presentation.detail.components.components
+package com.dicoding.newapp.presentation.detail.components
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.fillMaxWidth

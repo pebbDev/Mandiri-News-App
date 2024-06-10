@@ -4,7 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
-
 }
 
 android {
@@ -54,6 +53,9 @@ android {
 }
 
 dependencies {
+    //Accompanist
+    implementation ("com.google.accompanist:accompanist-systemuicontroller:0.31.4-beta")
+
 
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")

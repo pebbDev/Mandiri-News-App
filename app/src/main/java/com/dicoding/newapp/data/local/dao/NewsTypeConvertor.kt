@@ -1,4 +1,4 @@
-package com.dicoding.newapp.data.local
+package com.dicoding.newapp.data.local.dao
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter

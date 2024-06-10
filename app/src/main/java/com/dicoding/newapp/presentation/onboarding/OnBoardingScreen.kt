@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.dp
 import com.dicoding.newapp.presentation.common.NewButton
 import com.dicoding.newapp.presentation.common.NewsTextButton
 import com.dicoding.newapp.presentation.onboarding.components.Dimens.MediumPadding2
-import com.dicoding.newapp.presentation.onboarding.components.Dimens.pageIndicatorWidth
 import com.dicoding.newapp.presentation.onboarding.components.OnboardingPage
 import com.dicoding.newapp.presentation.onboarding.components.PageIndicator
 import kotlinx.coroutines.launch

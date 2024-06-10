@@ -32,6 +32,7 @@ import com.dicoding.newapp.presentation.onboarding.components.Dimens.IconSize
 import com.dicoding.newapp.ui.theme.NewAppTheme
 
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(

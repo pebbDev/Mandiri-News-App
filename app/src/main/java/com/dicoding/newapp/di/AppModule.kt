@@ -2,24 +2,10 @@ package com.dicoding.newapp.di
 
 import android.app.Application
 import androidx.room.Room
-import com.dicoding.newapp.data.local.NewsDao
-import com.dicoding.newapp.data.local.NewsDatabase
-import com.dicoding.newapp.data.local.NewsTypeConvertor
-import com.dicoding.newapp.data.manger.LocalUserMangerImpl
+import com.dicoding.newapp.data.local.dao.NewsDao
+import com.dicoding.newapp.data.local.dao.NewsDatabase
+import com.dicoding.newapp.data.local.dao.NewsTypeConvertor
 import com.dicoding.newapp.data.remote.NewsApi
-import com.dicoding.newapp.data.repository.NewsRepositoryImpl
-import com.dicoding.newapp.domain.manger.LocalUserManger
-import com.dicoding.newapp.domain.repository.NewsRepository
-import com.dicoding.newapp.domain.usecase.app_entry.AppEntryUseCase
-import com.dicoding.newapp.domain.usecase.app_entry.ReadAppEntry
-import com.dicoding.newapp.domain.usecase.app_entry.SaveAppEntry
-import com.dicoding.newapp.domain.usecase.news.DeleteArticle
-import com.dicoding.newapp.domain.usecase.news.GetArticle
-import com.dicoding.newapp.domain.usecase.news.GetArticles
-import com.dicoding.newapp.domain.usecase.news.GetNews
-import com.dicoding.newapp.domain.usecase.news.NewsUseCases
-import com.dicoding.newapp.domain.usecase.news.SearchNews
-import com.dicoding.newapp.domain.usecase.news.UpsertArticle
 import com.dicoding.newapp.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -33,7 +19,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
     @Provides
     @Singleton
     fun provideApiInstance(): NewsApi {
@@ -47,48 +32,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideLocalUserManger(
-        application: Application
-    ): LocalUserManger = LocalUserMangerImpl(application = application)
-
-    @Provides
-    @Singleton
-    fun provideAppEntryUseCases(
-        localUserManger: LocalUserManger
-    ): AppEntryUseCase = AppEntryUseCase(
-        readAppEntry = ReadAppEntry(localUserManger),
-        saveAppEntry = SaveAppEntry(localUserManger)
-    )
-
-    @Provides
-    @Singleton
-    fun provideNewsRepository(
-        newsApi: NewsApi,
-        newsDao: NewsDao
-    ): NewsRepository {
-        return NewsRepositoryImpl(newsApi,newsDao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideNewsUseCases(
-        newsRepository: NewsRepository,
-        newsDao: NewsDao
-    ): NewsUseCases {
-        return NewsUseCases(
-            getNews = GetNews(newsRepository),
-            searchNews = SearchNews(newsRepository),
-            upsertArticle = UpsertArticle(newsDao),
-            deleteArticle = DeleteArticle(newsDao),
-            getArticles = GetArticles(newsDao),
-            getArticle = GetArticle(newsDao)
-        )
-    }
-
-    @Provides
-    @Singleton
     fun provideNewsDatabase(
-        application: Application
+        application: Application,
     ): NewsDatabase {
         return Room.databaseBuilder(
             context = application,
@@ -101,7 +46,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNewsDao(
-        newsDatabase: NewsDatabase
+        newsDatabase: NewsDatabase,
     ): NewsDao = newsDatabase.newsDao
 
 }

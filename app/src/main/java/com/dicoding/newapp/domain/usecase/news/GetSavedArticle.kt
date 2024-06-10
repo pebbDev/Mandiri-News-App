@@ -1,9 +1,10 @@
 package com.dicoding.newapp.domain.usecase.news
 
-import com.dicoding.newapp.data.local.NewsDao
+import com.dicoding.newapp.data.local.dao.NewsDao
 import com.dicoding.newapp.domain.model.Article
+import javax.inject.Inject
 
-class GetArticle (
+class GetSavedArticle @Inject constructor(
     private val newsDao: NewsDao
 ) {
 
